@@ -9,3 +9,7 @@ body {
 button {
     padding: 5px 25px;
 }
+
+input {
+    padding: 5px;
+}
