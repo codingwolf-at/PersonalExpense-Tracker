@@ -6,6 +6,8 @@ const inputAmount = document.querySelector('#inputAmount');
 const inputDesc = document.querySelector('#inputDesc')
 // ref to add expense button
 const element = document.querySelector('#btnAddExpense');
+// ref to table element 
+const expenseTableElement = document.querySelector('#expenseTable');
 
 // init value of total expense to 0
 let totalExpense = 0;
@@ -43,7 +45,21 @@ function addExpense() {
     totalExpense = totalExpense + inputAmountData;
 
     // set the value of heading element to total expense 
-    headingElement.textContent = totalExpense;
+    const someText = `Total: ${totalExpense}`;
+    headingElement.textContent = someText;
+
+    // Show the table
+    const data1 = allExpense[0];
+    const data2 = allExpense[1];
+    const data2Text = `Expense: ${data2.amount} :: Desc: ${data2.desc}`;
+    const data1Text = `Expense: ${data1.amount} :: Desc: ${data1.desc}`;
+
+    const tableText = `
+        <div>${data1Text}</div>
+        <div>${data2Text}</div>
+    `
+
+    expenseTableElement.innerHTML = tableText; 
 }
 
 // adding event listener to add expense button
