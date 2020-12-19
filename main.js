@@ -48,18 +48,15 @@ function addExpense() {
     const someText = `Total: ${totalExpense}`;
     headingElement.textContent = someText;
 
-    // Show the table
-    const data1 = allExpense[0];
-    const data2 = allExpense[1];
-    const data2Text = `Expense: ${data2.amount} :: Desc: ${data2.desc}`;
-    const data1Text = `Expense: ${data1.amount} :: Desc: ${data1.desc}`;
+    // getting the data in tabular form via looping
+    const allExpenseHTML = allExpense.map(expense => {
+        return `<div>${expense.amount} :: ${expense.desc}</div>`
+    });
 
-    const tableText = `
-        <div>${data1Text}</div>
-        <div>${data2Text}</div>
-    `
+    const joinedAllExpenseHTML = allExpenseHTML.join("")
 
-    expenseTableElement.innerHTML = tableText; 
+    // setting the html of table
+    expenseTableElement.innerHTML = joinedAllExpenseHTML; 
 }
 
 // adding event listener to add expense button
