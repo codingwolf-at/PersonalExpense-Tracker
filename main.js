@@ -49,9 +49,7 @@ function addExpense() {
     headingElement.textContent = someText;
 
     // getting the data in tabular form via looping
-    const allExpenseHTML = allExpense.map(expense => {
-        return `<div>${expense.amount} :: ${expense.desc}</div>`
-    });
+    const allExpenseHTML = allExpense.map(expense => createListItem(expense));
 
     const joinedAllExpenseHTML = allExpenseHTML.join("")
 
@@ -61,3 +59,21 @@ function addExpense() {
 
 // adding event listener to add expense button
 element.addEventListener("click", addExpense, false);
+
+// function to create html for list
+function createListItem({ desc, amount }) {
+    return `
+        <li class="list-group-item d-flex justify-content-between">
+            <div class="d-flex flex-column">
+                ${desc}
+                <small class="text-muted">December 9, 2020</small>
+            </div>
+            <div>
+                <span class="px-5">${amount}</span>
+            </div>
+            <button type="button" class="btn btn-outline-danger btn-sm">
+                <i class="fas fa-trash-alt"></i>
+            </button>
+        </li>
+        `;
+}
