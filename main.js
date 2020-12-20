@@ -38,6 +38,9 @@ function addExpense() {
     // init value of desc in object
     expenseItem.desc = inputDescData
 
+    // init value of date
+    expenseItem.moment = new Date(); 
+
     // pushing object to array
     allExpense.push(expenseItem);
     
@@ -61,12 +64,12 @@ function addExpense() {
 element.addEventListener("click", addExpense, false);
 
 // function to create html for list
-function createListItem({ desc, amount }) {
+function createListItem({ desc, amount, moment }) {
     return `
         <li class="list-group-item d-flex justify-content-between">
             <div class="d-flex flex-column">
                 ${desc}
-                <small class="text-muted">December 9, 2020</small>
+                <small class="text-muted">${getDateString(moment)}</small>
             </div>
             <div>
                 <span class="px-5">${amount}</span>
@@ -76,4 +79,9 @@ function createListItem({ desc, amount }) {
             </button>
         </li>
         `;
+}
+
+// function to generate date
+function getDateString(moment) {
+    return moment.toLocaleDateString('en-US', {year: 'numeric', month: 'long', day: 'numeric'})
 }
