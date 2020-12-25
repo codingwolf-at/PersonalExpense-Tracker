@@ -51,17 +51,23 @@ function addExpense() {
     const someText = `Total: ${totalExpense}`;
     headingElement.textContent = someText;
 
-    // getting the data in tabular form via looping
-    const allExpenseHTML = allExpense.map(expense => createListItem(expense));
-
-    const joinedAllExpenseHTML = allExpenseHTML.join("")
-
-    // setting the html of table
-    expenseTableElement.innerHTML = joinedAllExpenseHTML; 
+    // rendering the table
+    renderList(allExpense);
 }
 
 // adding event listener to add expense button
 element.addEventListener("click", addExpense, false);
+
+// CONTROLLER FUNCTIONS
+
+// function to render list
+function renderList(arrayList) {
+    // getting the data in tabular form via looping
+    const allExpenseHTML = arrayList.map(expense => createListItem(expense));
+    const joinedAllExpenseHTML = allExpenseHTML.join("")
+    // setting the html of table
+    expenseTableElement.innerHTML = joinedAllExpenseHTML; 
+}
 
 // function to create html for list
 function createListItem({ desc, amount, moment }) {
@@ -74,7 +80,7 @@ function createListItem({ desc, amount, moment }) {
             <div>
                 <span class="px-5">${amount}</span>
             </div>
-            <button type="button" class="btn btn-outline-danger btn-sm">
+            <button type="button" class="btn btn-danger" onclick="deleteItem(${moment.valueOf()})">
                 <i class="fas fa-trash-alt"></i>
             </button>
         </li>
@@ -83,5 +89,15 @@ function createListItem({ desc, amount, moment }) {
 
 // function to generate date
 function getDateString(moment) {
-    return moment.toLocaleDateString('en-US', {year: 'numeric', month: 'long', day: 'numeric'})
+    return moment.toLocaleDateString('en-US', {year: 'numeric', month: 'long', day: 'numeric'}) 
+}
+
+// function to delete entry
+function deleteItem(dateValue) {
+    const newArr = allExpense.filter((expense) => {
+        if(expense.moment.valueOf() !== dateValue) {
+            return expense;
+        }
+    })
+    renderList(newArr);
 }
