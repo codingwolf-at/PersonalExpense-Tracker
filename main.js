@@ -13,7 +13,7 @@ const expenseTableElement = document.querySelector('#expenseTable');
 let totalExpense = 0;
 
 // init an array for all expenses
-const allExpense = [];
+let allExpense = [];
 
 // init value of heading element to total expense 
 headingElement.textContent = totalExpense;
@@ -45,11 +45,8 @@ function addExpense() {
     allExpense.push(expenseItem);
     
     // adding expense to total expense
-    totalExpense = totalExpense + inputAmountData;
-
     // set the value of heading element to total expense 
-    const someText = `Total: ${totalExpense}`;
-    headingElement.textContent = someText;
+    newTotal(allExpense);
 
     // rendering the table
     renderList(allExpense);
@@ -96,8 +93,27 @@ function getDateString(moment) {
 function deleteItem(dateValue) {
     const newArr = allExpense.filter((expense) => {
         if(expense.moment.valueOf() !== dateValue) {
+            totalExpense = totalExpense  - expense.amount;
             return expense;
         }
     })
+    allExpense = newArr;
+    newTotal(allExpense);
     renderList(newArr);
+}
+
+// function to calculate new total upon deletion
+function newTotal(expenses) {
+    let sum = 0;
+    expenses.map(items => {
+        sum = sum + items.amount;
+    })
+    totalExpense = sum;
+    showTotalExpense(totalExpense);
+}
+
+// function to show totalExpense
+function showTotalExpense(totalExpense) {
+    const someText = `Total: ${totalExpense}`;
+    headingElement.textContent = someText;
 }
