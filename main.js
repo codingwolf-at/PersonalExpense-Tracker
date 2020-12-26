@@ -50,6 +50,10 @@ function addExpense() {
 
     // rendering the table
     renderList(allExpense);
+
+    // clearing the input fields
+    inputAmount.value = "";
+    inputDesc.value = "";
 }
 
 // adding event listener to add expense button
